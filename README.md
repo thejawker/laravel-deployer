@@ -1,5 +1,5 @@
 # laravel-deployer
-Makes deploying Laravel applications an absolute breeze!💨💨💨💨 
+Makes deploying Laravel applications an absolute breeze! 💨💨💨💨 
 
 ### WIP
 This will be pretty cool, but will take some time before it's done.
