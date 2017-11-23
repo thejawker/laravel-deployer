@@ -61,9 +61,9 @@ return [
         'set-up' => [
             'comment' => 'Prepares the deployment.',
             'commands' => [
-                BashCommands::SET_CURRENT_DIR,
-                BashCommands::ARTISAN_DOWN,
-                BashCommands::MIGRATE
+//                BashCommands::SET_CURRENT_DIR,
+//                BashCommands::ARTISAN_DOWN,
+//                BashCommands::MIGRATE
             ]
         ],
 

@@ -2,15 +2,47 @@
 
 namespace TheJawker\Deployer;
 
+use Illuminate\Http\File;
+use Illuminate\Support\Collection;
+
 class DeployScriptGenerator
 {
-    public static function asString()
+    /**
+     * @var Collection
+     */
+    public $commands;
+
+    public function __construct()
     {
-        return self::bashHeader();
+        $this->commands = collect([
+            self::bashHeader()
+        ]);
+    }
+
+    public function asString()
+    {
+        return $this->commands->implode(" \n");
     }
 
     private static function bashHeader()
     {
         return "#!/bin/bash";
+    }
+
+    public function store()
+    {
+        file_put_contents($this->getFilePath(), self::asString());
+
+        return new File($this->getFilePath());
+    }
+
+    public function getFilePath()
+    {
+        return base_path(config('deployer.script-name', 'deployer.sh'));
+    }
+
+    public function loadConfig()
+    {
+
     }
 }
