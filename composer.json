@@ -1,0 +1,57 @@
+{
+    "name": "thejawker/laravel-deployer",
+    "description": "Makes deploying your Laravel app an absolute breeze.",
+    "keywords": [
+        "thejawker",
+        "laravel",
+        "deployment",
+        "deploying",
+        "production"
+    ],
+    "homepage": "https://github.com/thejawker/laravel-route-module-macro",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bram Veerman",
+            "email": "bram.veerman@gmail.com",
+            "homepage": "https://github.com/thejawker",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": "~5.5.0",
+        "illuminate/validation": "~5.5.0",
+        "illuminate/pagination": "~5.5.0",
+        "illuminate/view": "~5.5.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "orchestra/database": "~3.5.0",
+        "orchestra/testbench": "~3.5.0",
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheJawker\\Deployer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheJawker\\Deployer\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TheJawker\\Deployer\\DeployerServiceProvider"
+            ]
+        }
+    }
+}

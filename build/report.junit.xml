@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="TheJawker\Deployer\Test\GeneratesBashTest" file="/Users/bramveerman/Dev/laravel-deployer/tests/GeneratesBashTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.035992">
+    <testcase name="script_starts_with_bash_exec" class="TheJawker\Deployer\Test\GeneratesBashTest" classname="TheJawker.Deployer.Test.GeneratesBashTest" file="/Users/bramveerman/Dev/laravel-deployer/tests/GeneratesBashTest.php" line="10" assertions="1" time="0.035992"/>
+  </testsuite>
+</testsuites>
