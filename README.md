@@ -1,4 +1,4 @@
-# laravel-deployer
+# Laravel Deployer
 Makes deploying Laravel applications an absolute breeze! 💨💨💨💨 
 
 ### WIP
