@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'slack-channel' => 'some-value',
+    'slack-channel' => 'some-channel',
     'slack-url' => 'http://some-domain.xx',
 
     /*
@@ -36,8 +36,22 @@ return [
     | send notifications when deploying on the production env.
     |
     */
+
     'env-level' => ['*'],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Duration Warning Time Threshold
+    |--------------------------------------------------------------------------
+    |
+    | If the deployment takes longer than this amount of time, the
+    | message will be sent with a warning to the Slack Channel.
+    |
+    | Value is in seconds.
+    |
+    */
+
+    'warn-after' => 20,
 
     /*
     |--------------------------------------------------------------------------
