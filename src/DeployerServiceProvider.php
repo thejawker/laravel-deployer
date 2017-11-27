@@ -4,6 +4,7 @@ namespace TheJawker\Deployer;
 
 use Illuminate\Support\ServiceProvider;
 use TheJawker\Deployer\Commands\DeployCommand;
+use TheJawker\Deployer\Commands\DeployerCommand;
 
 class DeployerServiceProvider extends ServiceProvider
 {
@@ -24,9 +25,9 @@ class DeployerServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/deployer.php', 'deployer');
 
-        $this->app->bind('command.deploy', DeployCommand::class);
+        $this->app->bind('command.deployer', DeployerCommand::class);
         $this->commands([
-            'command.deploy'
+            'command.deployer'
         ]);
     }
 }

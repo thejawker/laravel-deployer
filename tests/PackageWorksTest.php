@@ -9,10 +9,8 @@ class PackageWorksTest extends TestCase
     /** @test */
     public function the_deployment_command_can_be_run()
     {
-        Artisan::call('deploy');
+        Artisan::call('deployer');
 
         $this->assertTrue(true);
     }
-
-
 }

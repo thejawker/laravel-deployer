@@ -42,7 +42,29 @@ class NotificationTest extends TestCase
         $this->assertEquals('Deployer', $slackMessage->username);
         $this->assertEquals('success', $slackMessage->level);
     }
-    
+
+    /** @test */
+    public function logs_are_attached_to_the_message()
+    {
+        $time = microtime(true) - 20;
+        $log = collect([
+            'git' => 'Something went wrong',
+            'php' => 'Runtime error'
+        ]);
+        $notification = new PostDeployNotification($time, $log);
+
+        $slackMessage = $notification->constructMessage();
+
+        $this->assertEquals('Deployer', $slackMessage->username);
+        $this->assertCount(3, $slackMessage->attachments);
+
+        $this->assertEquals('Deployment took 20 seconds', $slackMessage->attachments[ 'duration' ]->title);
+        $this->assertEquals('Git has an issue', $slackMessage->attachments[ 'git' ]->title);
+        $this->assertEquals('Something went wrong', $slackMessage->attachments[ 'git' ]->content);
+        $this->assertEquals('Php has an issue', $slackMessage->attachments[ 'php' ]->title);
+        $this->assertEquals('Runtime error', $slackMessage->attachments[ 'php' ]->content);
+    }
+
     /** @test */
     public function if_the_deployment_has_errors_it_will_be_an_error()
     {
@@ -57,7 +79,7 @@ class NotificationTest extends TestCase
         $this->assertEquals('Deployer', $slackMessage->username);
         $this->assertEquals('error', $slackMessage->level);
     }
-    
+
     /** @test */
     public function a_longer_than_threshold_can_show_a_warning()
     {
@@ -85,7 +107,7 @@ class NotificationTest extends TestCase
         $this->assertEquals('Deployer', $slackMessage->username);
         $this->assertEquals('error', $slackMessage->level);
     }
-    
+
     /** @test */
     public function the_notification_is_sent_to_the_proper_channel()
     {
@@ -99,7 +121,7 @@ class NotificationTest extends TestCase
         $this->assertEquals('Deployer', $slackMessage->username);
         $this->assertEquals('Random Channel', $slackMessage->channel);
     }
-    
+
     /** @test */
     public function the_title_shows_the_environment_of_the_deployer()
     {

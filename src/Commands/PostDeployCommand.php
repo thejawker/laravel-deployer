@@ -7,8 +7,14 @@ use TheJawker\Deployer\Notifications\PostDeployNotification;
 
 class PostDeployCommand extends BaseCommand
 {
+    /**
+     * Constants for parsing.
+     */
+    const ARRAY_SEPARATOR = "~@~@~";
+    const ARRAY_VALUE_SEPARATOR = "=>==";
+
     private $microtime;
-    private $log;
+    public $log;
 
     protected $signature = 'deployer:post-deploy
                             {timestamp : The starting time of the deployment script} 
@@ -21,13 +27,28 @@ class PostDeployCommand extends BaseCommand
     public function __construct($microtime, $log, $fakeUser = null)
     {
         $this->microtime = $microtime;
-        $this->log = $log;
+        $this->log = $this->parseLog($log);
         $this->fakeUser = $fakeUser;
     }
 
     public function handle()
     {
-        Notification::route('slack', config('deployer.slack-log.url'))
-            ->notify(new PostDeployNotification($this->microtime, $this->log));
+        if (in_array(config('app.env'), config('deployer.env-level')) || in_array('*', config('deployer.env-level'))) {
+            Notification::route('slack', config('deployer.slack-log.url'))
+                ->notify(new PostDeployNotification($this->microtime, $this->log));
+            return true;
+        }
+
+        return false;
+    }
+
+    private function parseLog($log)
+    {
+        return collect(explode(self::ARRAY_SEPARATOR, $log))->filter(function($line) {
+            return count(explode(self::ARRAY_VALUE_SEPARATOR, $line, 2)) === 2;
+        })->mapWithKeys(function ($line) {
+            $output = explode(self::ARRAY_VALUE_SEPARATOR, $line, 2);
+            return [$output[0] => $output[1]];
+        });
     }
 }
