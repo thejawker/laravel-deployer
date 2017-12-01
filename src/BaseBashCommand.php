@@ -57,8 +57,9 @@ EOF;
         collect(config($key, []))->map(function($command) {
             if (substr($command, 0, 1) === '!') {
                 $this->code(substr($command, 1));
+            } else {
+                $this->command($command);
             }
-            $this->command($command);
         });
 
         return $this;

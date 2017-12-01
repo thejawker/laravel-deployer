@@ -26,7 +26,7 @@ class GeneratesBashTest extends TestCase
 
         $this->assertNotEmpty($file);
         $this->assertTrue(str_contains("#!/bin/bash", $file->openFile()->fread(128)));
-        $this->assertTrue(str_contains('deploy.sh', $file->getFilename()));
+        $this->assertTrue(str_contains('deployer.sh', $file->getFilename()));
     }
     
     /** @test */
