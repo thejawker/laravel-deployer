@@ -16,6 +16,6 @@ class ScriptPostDeploy extends BaseBashCommand implements BashCommand
         $this->largeComment('Post Deploy Section');
         $this->loadConfigCommands('deployer.commands.post-deploy');
 
-        $this->code('php artisan post-deploy ${TIMESTAMP} "${ERRORS}"');
+        $this->code('php artisan deployer:post-deploy ${TIMESTAMP} "${ERRORS}"');
     }
 }

@@ -15,7 +15,7 @@ class DeployerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/deployer.php' => config_path('deployer.php'),
-        ], 'config');
+        ], 'deployer config');
     }
 
     /**
@@ -26,8 +26,10 @@ class DeployerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/deployer.php', 'deployer');
 
         $this->app->bind('command.deployer', DeployerCommand::class);
+        $this->app->bind('command.deployer:post-deploy', DeployerCommand::class);
         $this->commands([
-            'command.deployer'
+            'command.deployer',
+            'command.deployer:post-deploy',
         ]);
     }
 }
