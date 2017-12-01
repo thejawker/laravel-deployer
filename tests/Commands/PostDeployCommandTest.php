@@ -13,7 +13,8 @@ class PostDeployCommandTest extends TestCase
         $microtime = microtime(true);
         $log = "not anything -hh=>==./testing.sh: line 6: not: command not found~@~@~git anything -hh=>==git: 'anything' is not a git command. See 'git --help'.~@~@~";
 
-        $postDeploymentCommand = new PostDeployCommand($microtime, $log);
+        $postDeploymentCommand = new PostDeployCommand();
+        $postDeploymentCommand->setVariables($microtime, $log);
 
         $this->assertArraySubset([
             'not anything -hh' => './testing.sh: line 6: not: command not found',
@@ -28,9 +29,9 @@ class PostDeployCommandTest extends TestCase
         config()->set('app.env', 'cheese');
         Notification::fake();
 
-        $postDeploymentCommand = new PostDeployCommand(microtime(true) - 20, collect());
+        $postDeploymentCommand = new PostDeployCommand();
 
-        $this->assertTrue($postDeploymentCommand->handle());
+        $this->assertTrue($postDeploymentCommand->handle(microtime(true) - 20, collect()));
     }
 
     /** @test */
@@ -41,9 +42,9 @@ class PostDeployCommandTest extends TestCase
 
         Notification::fake();
 
-        $postDeploymentCommand = new PostDeployCommand(microtime(true) - 20, collect());
+        $postDeploymentCommand = new PostDeployCommand();
 
-        $this->assertFalse($postDeploymentCommand->handle());
+        $this->assertFalse($postDeploymentCommand->handle(microtime(true) - 20, collect()));
     }
 
     /** @test */
@@ -54,8 +55,8 @@ class PostDeployCommandTest extends TestCase
 
         Notification::fake();
 
-        $postDeploymentCommand = new PostDeployCommand(microtime(true) - 20, collect());
+        $postDeploymentCommand = new PostDeployCommand();
 
-        $this->assertTrue($postDeploymentCommand->handle());
+        $this->assertTrue($postDeploymentCommand->handle(microtime(true) - 20, collect()));
     }
 }

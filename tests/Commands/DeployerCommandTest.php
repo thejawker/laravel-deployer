@@ -12,8 +12,8 @@ class DeployerCommandTest extends TestCase
     {
         $deployerCommand = new DeployerCommand();
 
-        dd($deployerCommand->handle());
+        $deployerCommand->handle();
 
-
+        $this->assertTrue(true);
     }
 }

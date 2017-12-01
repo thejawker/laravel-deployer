@@ -19,20 +19,17 @@ class PostDeployCommand extends BaseCommand
     protected $signature = 'deployer:post-deploy
                             {timestamp : The starting time of the deployment script} 
                             {log? : The information log of the deployment}';
-    /**
-     * @var null
-     */
-    private $fakeUser;
 
-    public function __construct($microtime, $log, $fakeUser = null)
+    public function setVariables($microtime = null, $log = null)
     {
-        $this->microtime = $microtime;
-        $this->log = $this->parseLog($log);
-        $this->fakeUser = $fakeUser;
+        $this->microtime = $microtime ? $microtime : $this->argument('timestamp');
+        $this->log = $log ? $this->parseLog($log) : $this->parseLog($this->argument('log'));
     }
 
-    public function handle()
+    public function handle($microtime = null, $log = null)
     {
+        $this->setVariables($microtime, $log);
+
         if (in_array(config('app.env'), config('deployer.env-level')) || in_array('*', config('deployer.env-level'))) {
             Notification::route('slack', config('deployer.slack-log.url'))
                 ->notify(new PostDeployNotification($this->microtime, $this->log));
