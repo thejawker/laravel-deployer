@@ -49,6 +49,23 @@ EOF;
 
     protected function newLine()
     {
-        $this->bash->push("\n");
+        $this->bash->push("");
+    }
+
+    public function loadConfigCommands($key)
+    {
+        collect(config($key, []))->map(function($command) {
+            if (substr($command, 0, 1) === '!') {
+                $this->code(substr($command, 1));
+            }
+            $this->command($command);
+        });
+
+        return $this;
+    }
+
+    protected function command($command)
+    {
+        $this->code("run_command '$command'");
     }
 }

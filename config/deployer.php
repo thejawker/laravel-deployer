@@ -1,7 +1,5 @@
 <?php
 
-use TheJawker\Deployer\BashCommands;
-
 return [
 
     /*
@@ -55,31 +53,35 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | The various section of the Deployment Script
+    | Commands
     |--------------------------------------------------------------------------
+    |
+    | Here you can define the commands you want to run. They run in
+    | order of addition. They will be wrapped
     |
     */
 
-    'sections' => [
+    'commands' => [
+        'initialize' => [
 
-        /*
-        |--------------------------------------------------------------------------
-        | Set Up
-        |--------------------------------------------------------------------------
-        |
-        | Here you can add bash commands to the set-up phase of the
-        | deployer and some change config settings available.
-        |
-        */
+        ],
 
         'set-up' => [
-            'comment' => 'Prepares the deployment.',
-            'commands' => [
-//                BashCommands::SET_CURRENT_DIR,
-//                BashCommands::ARTISAN_DOWN,
-//                BashCommands::MIGRATE
-            ]
+            'php artisan down'
         ],
+
+
+        'deploy' => [
+            'git pull'
+        ],
+
+        'post-deploy' => [
+            'php artisan up',
+            'php artisan config:cache',
+            'php artisan route:cache',
+            'php artisan view:clear',
+            'php artisan horizon:terminate'
+        ]
 
         //...
     ]
