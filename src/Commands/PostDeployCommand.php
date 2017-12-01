@@ -31,7 +31,7 @@ class PostDeployCommand extends BaseCommand
         $this->setVariables($microtime, $log);
 
         if (in_array(config('app.env'), config('deployer.env-level')) || in_array('*', config('deployer.env-level'))) {
-            Notification::route('slack', config('deployer.slack-log.url'))
+            Notification::route('slack', config('deployer.slack-url'))
                 ->notify(new PostDeployNotification($this->microtime, $this->log));
             return true;
         }
