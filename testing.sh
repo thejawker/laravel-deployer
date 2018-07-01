@@ -13,11 +13,11 @@ run_command() {
         errors=${errors}"$1=>==$output~@~@~"
     fi
 
-    echo $1
-    echo ${output}
+    echo [running] $1':'
+    echo -e ${output}
+    echo -e '\n'
 }
 
-run_command 'not anything -hh'
-run_command 'git anything -hh'
+run_command 'echo something\n stuff'
 
 echo ${errors}
