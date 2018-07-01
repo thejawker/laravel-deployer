@@ -22,7 +22,7 @@ class ScriptInitializer extends BaseBashCommand implements BashCommand
     fi
 
     echo [running] $1':'
-    echo -e $\{output}
+    echo -e \${output}
     echo -e 'n'
 }"
         );
