@@ -21,9 +21,9 @@ class ScriptInitializer extends BaseBashCommand implements BashCommand
         ERRORS=\${ERRORS}\"$1=>==\$output~@~@~\"
     fi
 
-    echo [running] $1':'
+    echo [running] $1
     echo -e \${output}
-    echo -e 'n'
+    echo -e '\n'
 }"
         );
         $this->comment("Timestamp to check how long the process took.");
