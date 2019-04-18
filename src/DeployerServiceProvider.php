@@ -16,7 +16,7 @@ class DeployerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/deployer.php' => config_path('deployer.php'),
-        ], 'deployer config');
+        ], 'deployer-config');
     }
 
     /**
