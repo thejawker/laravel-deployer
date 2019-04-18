@@ -2,7 +2,6 @@
 
 namespace TheJawker\Deployer\Commands;
 
-use TheJawker\Deployer\BaseBashCommand;
 use TheJawker\Deployer\DeployScriptGenerator;
 use TheJawker\Deployer\ScriptInitializer;
 use TheJawker\Deployer\ScriptLoader;
